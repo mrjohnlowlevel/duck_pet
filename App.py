@@ -1,29 +1,28 @@
 import discord
+import os
+from pathlib import Path
 from discord.ext import commands
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
-TOKEN: str = os.getenv('BOT_TOKEN')
-
-description = """Duck Pet"""
-
-intents = discord.Intents.default()
-intents.members = True
-intents.message_content = True
-
-bot = commands.Bot(command_prefix='?', description=description, intents=intents)
 
 
-@bot.event
-async def on_ready():
-    assert bot.user is not None
+class DuckBot(commands.Bot):
+    def __init__(self):
+        intents = discord.Intents.default()
+        intents.message_content = True
+        super().__init__(command_prefix='?', intents=intents)
 
-    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    async def setup_hook(self):
+        cogs_path = Path("./cogs")
+        for cog_file in cogs_path.glob("*.py"):
+            if cog_file.stem != "__init__":
+                await self.load_extension(f"cogs.{cog_file.stem}")
+                print(f"Loaded Cog: cog.{cog_file.stem}")
 
-@bot.command()
-async def test(ctx):
-    await ctx.send("Hello, World")
 
+if __name__ == "__main__":
+    bot_token = os.getenv('BOT_TOKEN')
 
-bot.run(TOKEN)
+    bot = DuckBot()
+    bot.run(bot_token)
