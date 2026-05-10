@@ -1,18 +1,20 @@
 import discord
 from discord.ext import commands
 
-class Greetings(commands.Cog):
+
+class Sounds(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('! Greetings Cog loaded !')
+        print('! Sounds Cog loaded !')
+
 
     @commands.command()
-    async def hello(self, ctx):
-        await ctx.send(f'Hello {ctx.author.name}!')
+    async def quack(self, ctx):
+        await ctx.send(f'Quack')
 
 
 async def setup(bot):
-    await bot.add_cog(Greetings(bot))
+    await bot.add_cog(Sounds(bot))
