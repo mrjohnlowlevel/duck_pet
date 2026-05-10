@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 
 
@@ -12,7 +11,7 @@ class Interactions(commands.Cog):
 
 
     @commands.command()
-    async def repeat_word(self, ctx, time: int, arg: str):
+    async def repeat_word(self, ctx: commands.Context, time: int, arg: str):
         for _ in range(time):
             await ctx.send(arg)
 

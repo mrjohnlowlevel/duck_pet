@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 
 class Greetings(commands.Cog):
@@ -10,7 +9,7 @@ class Greetings(commands.Cog):
         print('! Greetings Cog loaded !')
 
     @commands.command()
-    async def hello(self, ctx):
+    async def hello(self, ctx: commands.Context):
         await ctx.send(f'Hello {ctx.author.name}!')
 
 

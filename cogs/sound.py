@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 
 
@@ -12,7 +11,7 @@ class Sounds(commands.Cog):
 
 
     @commands.command()
-    async def quack(self, ctx):
+    async def quack(self, ctx: commands.Context):
         await ctx.send(f'Quack')
 
 
